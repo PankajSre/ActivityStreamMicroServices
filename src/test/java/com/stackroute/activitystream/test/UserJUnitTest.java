@@ -56,6 +56,8 @@ public class UserJUnitTest {
 	@Test
 	public void testValidateUser()
 	{
+		//why to set the parameters to user?  Directly you can send mailid and password to validateUser method
+		//The same is there in other test cases.
 	   user.setEmailId("raman@gmail.com");
 	   user.setPassword("raman");
 		boolean validatedUser=userDAO.validateUser(user.getEmailId(),user.getPassword());
@@ -129,6 +131,7 @@ public class UserJUnitTest {
 		user.setEmailId("ram@gmail.com");
 		User updatedUser=userDAO.getUserByEmailId(user.getEmailId());
 		assertNotNull(updatedUser);
+		//email id should not be updatable as it is primary key.
 		updatedUser.setEmailId("Pankaj.saini85@gmail.com");
 		assertEquals(true, userDAO.updateUser(updatedUser));
 	}
@@ -137,7 +140,10 @@ public class UserJUnitTest {
 	public void testForGetAllUsers()
 	{
 		List<User> userList=userDAO.getAllUsers();
+		
+	
 		assertNotNull(userList);
+	        //user assert statements instead of loop and SOP.
 		for(User userData : userList)
 		{
 			System.out.println(userData.getUsername()+"  :  "+userData.getMobileNumber());
