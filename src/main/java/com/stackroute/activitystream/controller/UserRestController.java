@@ -82,7 +82,7 @@ public class UserRestController {
 		
 		if (user == null) {
 			user = new User();
-			return new ResponseEntity<User>(user, HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<User>(user, HttpStatus.NOT_FOUND);
 		} else {
 			userDAO.deleteUser(user);
 			return new ResponseEntity<User>(user, HttpStatus.OK);
