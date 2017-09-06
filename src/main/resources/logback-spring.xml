@@ -19,6 +19,8 @@
       <appender-ref ref="FILE" />
       <appender-ref ref="STDOUT" />
    </root>
+   
+   <!-- Use only one level - already discussed -->
  <logger name="com.stackroute.activitystream" level="INFO"/>
   <logger name="com.stackroute.activitystream" level="WARN"/>
 </configuration>
