@@ -39,6 +39,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stackroute.activitystream.controller.CircleRestController;
@@ -48,6 +49,7 @@ import com.stackroute.activitystream.model.Circle;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = ActivityStreamUserCircle.class)
+@EnableWebMvc
 public class CircleMockitoTest {
 
 

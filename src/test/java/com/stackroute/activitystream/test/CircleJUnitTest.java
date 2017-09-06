@@ -28,7 +28,8 @@ public class CircleJUnitTest {
 	private CircleDAO circleDAO;
 	@Autowired
 	private Circle circle;
-	@Ignore
+	
+
 	@Test
 	public void addToCircle()
 	{
@@ -38,6 +39,7 @@ public class CircleJUnitTest {
 		circle.setStatus(true);
 		assertEquals(true, circleDAO.addCircle(circle));
 	}
+	@Ignore
 	@Test
 	public void testToGetAllCircles()
 	{
@@ -52,7 +54,7 @@ public class CircleJUnitTest {
 		circle=circleDAO.getCircleByName("general");
 		assertEquals(true, circleDAO.deleteCircle(circle.getCircleName(),circle.getOwnerEmailId()));
 	}
-	@Ignore
+  @Ignore
   @Test
   public void testToUpdateCircle()
   {
