@@ -9,7 +9,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-
+//JWT Should not be part of back end
 public class JWTAuthenticationFilter extends GenericFilterBean {
 
 	@Override
