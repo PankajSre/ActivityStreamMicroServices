@@ -11,4 +11,5 @@ public interface MessageDAO {
 	List<Message> getAllMessages(String emailId);
 	boolean updateMessage(Message message);
 	Message getMessageById(int messageId);
+	boolean isReceiverExists(String receiverEmailId);
 }

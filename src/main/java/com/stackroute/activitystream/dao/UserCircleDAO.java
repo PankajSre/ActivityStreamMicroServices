@@ -10,9 +10,10 @@ public interface UserCircleDAO {
 	boolean deleteUserFromCircle(String emailId,String circleName);
 	boolean deleteCircle(UserCircle circle);
 	List<UserCircle> getAllCircles();
-	List<UserCircle> getCircleByUser(String createdBy);
+	List<UserCircle> getCircleByUser(String ownerId);
 	List<String> getUserByCircle(String circleName);
 	public UserCircle getCircleByName(String circleName);
 	boolean updateCircle(UserCircle userCircle);
-	
+	public boolean isCircleExists(String circleName);
+	public boolean isSubscriberExists(String subscriber);
 }

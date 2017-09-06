@@ -25,9 +25,10 @@ public class UserDAOImpl implements UserDAO {
 			return true;
 		} catch (HibernateException e) {
 			e.printStackTrace();
+			return false;
 
 		}
-		return false;
+		
 	}
 
 	public boolean validateUser(String emailId, String password) {

@@ -12,4 +12,6 @@ public interface UserMessageDAO {
 	List<UserMessage> getMyMessages(String emailId);
 	UserMessage getMessageByMessageId(int messageId);
 	List<UserMessage> getAllMessageByCircleName(String circleName);
+	boolean isReceiverExists(String receiverEmailId);
+	public boolean isCircleExists(String circleName);
 }

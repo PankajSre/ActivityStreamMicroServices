@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.stackroute.activitystream.dao.UserMessageDAO;
+import com.stackroute.activitystream.model.UserCircle;
 import com.stackroute.activitystream.model.UserMessage;
 
 
@@ -25,11 +26,18 @@ public class UserMessageDAOImpl implements UserMessageDAO {
 	public boolean sendMessage(UserMessage userMessage) {
 		
 		try {
+			if(isReceiverExists(userMessage.getReceiverEmailId()))
+			{
 			Session session=sessionFactory.openSession();
 			session.save(userMessage);
 			session.flush();
 			session.close();
 			return true;
+			}
+			else
+			{
+				return false;
+			}
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		}
@@ -45,6 +53,10 @@ public class UserMessageDAOImpl implements UserMessageDAO {
 			sessionFactory.getCurrentSession().delete(getMessageByMessageId(messageId));
 			return true;
 			}
+			else
+			{
+				return false;
+			}
 		} catch (HibernateException e) {
 			
 			e.printStackTrace();
@@ -53,7 +65,7 @@ public class UserMessageDAOImpl implements UserMessageDAO {
 	}
 
 	private boolean checkforMessageAuthenticity(int messageId, String emailId) {
-	    String hql="from UserMessage where messageId=messageId and receiverEmailId='"+emailId+"'";
+	    String hql="from UserMessage where messageId='"+messageId+"' and receiverEmailId='"+emailId+"'";
 	    Query query=sessionFactory.getCurrentSession().createQuery(hql);
 	    List<UserMessage> userMessage=(List<UserMessage>) query.list();
 	    if(userMessage !=null)
@@ -65,11 +77,17 @@ public class UserMessageDAOImpl implements UserMessageDAO {
 
 	@Override
 	public List<UserMessage> getMyMessages(String emailId) {
-		
+		if(isReceiverExists(emailId))
+		{
 		String hql="from UserMessage where receiverEmailId='"+emailId+"'";
 		Query query=sessionFactory.getCurrentSession().createQuery(hql);
 		List<UserMessage> userMessages=query.list();
 		return userMessages;
+		}
+		else
+		{
+			return null;
+		}
 	}
 
 	@Override
@@ -80,11 +98,40 @@ public class UserMessageDAOImpl implements UserMessageDAO {
 
 	@Override
 	public List<UserMessage> getAllMessageByCircleName(String circleName) {
+		if(isCircleExists(circleName))
+		{
 		String hql="from UserMessage where circleName=?";
 		Query query = sessionFactory.getCurrentSession().createQuery(hql).setParameter(0, circleName);
 		
 		List<UserMessage> messageList= query.list();
 		return messageList;
+		}
+		else
+		{
+			return null;
+		}
+	}
+	@Override
+	public boolean isReceiverExists(String receiverEmailId) {
+		String hql="FROM User where emailId='"+receiverEmailId+"'";
+		
+		Query query=sessionFactory.getCurrentSession().createQuery(hql);
+		if(query.list().size()>0)
+			return true;
+		else
+			return false;
+	}
+	
+	@Override
+	public boolean isCircleExists(String circleName) {
+		String hql = "from UserCircle where circleName='"+circleName+"'";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+
+		
+		if (query.uniqueResult()  != null)
+			return true;
+		else
+			return false;
 	}
 
 }

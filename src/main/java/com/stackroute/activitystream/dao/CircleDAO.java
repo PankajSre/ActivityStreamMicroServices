@@ -12,5 +12,5 @@ public interface CircleDAO {
 	boolean deleteCircle(String circleName,String ownerId);
 	boolean updateCircle(Circle circle);
 	public Circle getCircleByName(String circleName);
-	public boolean isCircleExists(String circleName);
+	public boolean isCircleExists(String circleName);//Remove It
 }

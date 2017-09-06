@@ -5,12 +5,14 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.stackroute.activitystream.dao.MessageDAO;
 import com.stackroute.activitystream.model.Message;
+import com.stackroute.activitystream.model.User;
 
 
 @Repository(value="messageDAO")
@@ -23,8 +25,15 @@ public class MessageDAOImpl implements MessageDAO {
 	@Override
 	public boolean sendMessage(Message message) {
 		try {
+			if(isReceiverExists(message.getReceiverEmailId()))
+			{
 			sessionFactory.getCurrentSession().save(message);
 			return true;
+			}
+			else
+			{
+				return false;
+			}
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		}
@@ -54,6 +63,17 @@ public class MessageDAOImpl implements MessageDAO {
 	public Message getMessageById(int messageId) {
 		
 		return sessionFactory.getCurrentSession().get(Message.class, messageId);
+	}
+
+	@Override
+	public boolean isReceiverExists(String receiverEmailId) {
+		String hql="FROM User where emailId='"+receiverEmailId+"'";
+		
+		Query query=sessionFactory.getCurrentSession().createQuery(hql);
+		if(query.list().size()>0)
+			return true;
+		else
+			return false;
 	}
 
 }

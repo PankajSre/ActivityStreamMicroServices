@@ -91,8 +91,8 @@ public class CircleDAOImpl implements CircleDAO {
 
 	@Override
 	public boolean isCircleExists(String circleName) {
-		String hql = "from Circle where circleName=?";
-		Query query = sessionFactory.getCurrentSession().createQuery(hql).setParameter(1, circleName);
+		String hql = "from Circle where circleName='"+circleName+"'";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
 
 		Circle circle = (Circle) query.uniqueResult();
 		if (circle != null)
