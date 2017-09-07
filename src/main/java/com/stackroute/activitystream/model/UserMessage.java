@@ -15,15 +15,15 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Component
-@Table(name="usermessage")
-public class UserMessage extends ResourceSupport{
+@Table(name = "usermessage")
+public class UserMessage extends ResourceSupport {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int messageId;
 	private String messageText;
 	private String senderEmailId;
-	@JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private Date sentDate;
 	private long messageSize;
 	private long maximumSize;
@@ -32,9 +32,9 @@ public class UserMessage extends ResourceSupport{
 	private String circleName;
 
 	public UserMessage() {
-		
+
 	}
-	
+
 	public UserMessage(int messageId, String messageText, String senderEmailId, Date sentDate, long messageSize,
 			long maximumSize, String messageType, String receiverEmailId, String circleName) {
 		super();
@@ -121,6 +121,4 @@ public class UserMessage extends ResourceSupport{
 		this.circleName = circleName;
 	}
 
-	
-	
 }

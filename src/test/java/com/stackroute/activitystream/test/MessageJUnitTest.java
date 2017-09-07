@@ -32,7 +32,7 @@ public class MessageJUnitTest {
 	@Test
 	public void test_to_send_message_success()
 	{
-		message.setMessageId(9);
+		
 		message.setMaximumSize(1000000);
 		message.setMessageText("Youa are looking Good!");
 		message.setMessageSize(message.getMessageText().length());
@@ -46,7 +46,6 @@ public class MessageJUnitTest {
 	@Test
 	public void test_to_send_message_failure()
 	{
-		message.setMessageId(9);
 		message.setMaximumSize(1000000);
 		message.setMessageText("Youa are looking Good!");
 		message.setMessageSize(message.getMessageText().length());
@@ -70,7 +69,7 @@ public class MessageJUnitTest {
 	{
 		message.setReceiverEmailId("deepak1@gmail.com");//Reviever Email Id is Not Exists
 		List<Message> messages=messageDAO.getAllMessages(message.getReceiverEmailId());
-		assertEquals(0, messages.size());
+		assertNull(messages);
 	}
 	@Ignore
 	@Test

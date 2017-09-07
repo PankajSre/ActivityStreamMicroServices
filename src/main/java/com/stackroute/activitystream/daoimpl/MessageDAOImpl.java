@@ -12,39 +12,34 @@ import org.springframework.stereotype.Repository;
 
 import com.stackroute.activitystream.dao.MessageDAO;
 import com.stackroute.activitystream.model.Message;
-import com.stackroute.activitystream.model.User;
 
-
-@Repository(value="messageDAO")
+@Repository(value = "messageDAO")
 @Transactional
 public class MessageDAOImpl implements MessageDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	@Override
 	public boolean sendMessage(Message message) {
 		try {
-			if(isReceiverExists(message.getReceiverEmailId()))
-			{
-			sessionFactory.getCurrentSession().save(message);
-			return true;
-			}
-			else
-			{
+			if (isReceiverExists(message.getReceiverEmailId())) {
+				sessionFactory.getCurrentSession().save(message);
+				return true;
+			} else {
 				return false;
 			}
 		} catch (HibernateException e) {
 			e.printStackTrace();
+			return false;
 		}
-		return false;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Message> getAllMessages(String emailId) {
-		
-		return sessionFactory.getCurrentSession().createQuery("from Message where receiverEmailId='"+emailId+"'").list();
+		return sessionFactory.getCurrentSession().createQuery("from Message where receiverEmailId='" + emailId + "'")
+				.list();
 	}
 
 	@Override
@@ -56,24 +51,22 @@ public class MessageDAOImpl implements MessageDAO {
 			e.printStackTrace();
 			return false;
 		}
-		
 	}
 
 	@Override
 	public Message getMessageById(int messageId) {
-		
 		return sessionFactory.getCurrentSession().get(Message.class, messageId);
 	}
 
 	@Override
 	public boolean isReceiverExists(String receiverEmailId) {
-		String hql="FROM User where emailId='"+receiverEmailId+"'";
-		
-		Query query=sessionFactory.getCurrentSession().createQuery(hql);
-		if(query.list().size()>0)
+		String hql = "FROM User where emailId='" + receiverEmailId + "'";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		if (query.list().size() > 0) {
 			return true;
-		else
+		} else {
 			return false;
+		}
 	}
 
 }

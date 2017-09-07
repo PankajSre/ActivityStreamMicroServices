@@ -56,19 +56,14 @@ public class UserJUnitTest {
 	@Test
 	public void testValidateUser()
 	{
-	   user.setEmailId("raman@gmail.com");
-	   user.setPassword("raman");
-		boolean validatedUser=userDAO.validateUser(user.getEmailId(),user.getPassword());
+		boolean validatedUser=userDAO.validateUser("raman@gmail.com","raman");
 		assertNotNull(validatedUser);
 	}
    @Ignore
     @Test
    	public void testValidateUserByWrongCredentials()
    	{
-	   
-	   user.setEmailId("raman@gmail.com");
-	   user.setPassword("raman@123");
-		boolean validatedUser=userDAO.validateUser(user.getEmailId(),user.getPassword());
+		boolean validatedUser=userDAO.validateUser("raman@gmail.com","raman@123");
    		assertNull(validatedUser);
    	}
     @Ignore
@@ -82,26 +77,22 @@ public class UserJUnitTest {
     @Test
    	public void testValidateUserByNullPassword()
    	{
-	   user.setEmailId("raman@gmail.com");
-   		boolean validatedUser=userDAO.validateUser(user.getEmailId(), "");
+	   
+   		boolean validatedUser=userDAO.validateUser("raman@gmail.com", "");
    		assertEquals(false,validatedUser);
    	}
    @Ignore
     @Test
    	public void testValidateUserByUppercaseUsername()
    	{
-	   user.setEmailId("RAMAN@GMAIL.COM");
-	   user.setPassword("raman");
-	   boolean validatedUser=userDAO.validateUser(user.getEmailId(),user.getPassword());
+	   boolean validatedUser=userDAO.validateUser("RAMAN@GMAIL.COM","raman");
    		assertNotNull(validatedUser);
    	}
    @Ignore
     @Test
    	public void testValidateUserByUppercasePassword()
    	{
-	   user.setEmailId("raman@gmail.com");
-	   user.setPassword("RAMAN");
-	   boolean validatedUser=userDAO.validateUser(user.getEmailId(),user.getPassword());
+	   boolean validatedUser=userDAO.validateUser("raman@gmail.com","RAMAN");
    		assertNotNull(validatedUser);
    	}
   //*****************************User Login Test cases End*****************************
@@ -109,8 +100,7 @@ public class UserJUnitTest {
 	@Test
 	public void testGetUserByEmailId()
 	{
-		user.setEmailId("deepak@gmail.com");
-		User userById=userDAO.getUserByEmailId(user.getEmailId());
+		User userById=userDAO.getUserByEmailId("deepak@gmail.com");
 		assertNotNull(userById);
 		System.out.println("User Email ID :"+userById.getEmailId());		
 	}
@@ -118,30 +108,25 @@ public class UserJUnitTest {
 	@Test
 	public void testDeleteUser()
 	{
-		user.setEmailId("deepak@gmail.com");
-		User deletedUser=userDAO.getUserByEmailId(user.getEmailId());
+		User deletedUser=userDAO.getUserByEmailId("deepak@gmail.com");
 		assertEquals(true, userDAO.deleteUser(deletedUser));
 	}
 	@Ignore
 	@Test
 	public void testUpdateUser()
 	{
-		user.setEmailId("ram@gmail.com");
-		User updatedUser=userDAO.getUserByEmailId(user.getEmailId());
+		User updatedUser=userDAO.getUserByEmailId("ram@gmail.com");
 		assertNotNull(updatedUser);
-		updatedUser.setEmailId("Pankaj.saini85@gmail.com");
+		updatedUser.setActive(false);
 		assertEquals(true, userDAO.updateUser(updatedUser));
 	}
-   @Ignore
+    @Ignore
 	@Test
 	public void testForGetAllUsers()
 	{
 		List<User> userList=userDAO.getAllUsers();
 		assertNotNull(userList);
-		for(User userData : userList)
-		{
-			System.out.println(userData.getUsername()+"  :  "+userData.getMobileNumber());
-		}
+		assertEquals(5, userList.size());
 	}
 
 }

@@ -32,24 +32,17 @@ public class CircleJUnitTest {
 	@Test
 	public void addToCircle()
 	{
-		boolean exists=circleDAO.isCircleExists("stackroute");
-		if(!exists)
-		{
-		circle.setCircleName("stackroute");
+	    circle.setCircleName("stackroute");
 		circle.setOwnerEmailId("india@gmail.con");
 		circle.setStatus(true);
 		assertEquals(true, circleDAO.addCircle(circle));
-		}else
-		{
-			System.out.println("Circle Already Existx");
-		}
 	}
 	@Ignore
 	@Test
 	public void testToGetAllCircles()
 	{
 		List<Circle> circles=circleDAO.getAllCircles();
-		assertNotNull(circles);
+		assertEquals(2, circles.size());
 		
 	}
 	@Ignore
@@ -63,20 +56,8 @@ public class CircleJUnitTest {
 	@Test(expected=NullPointerException.class)
 	public void testToDeleteCircleNotExists()
 	{
-		circle=circleDAO.getCircleByName("niit");
-		assertEquals(true, circleDAO.deleteCircle(circle.getCircleName(),circle.getOwnerEmailId()));
+		assertEquals(true, circleDAO.deleteCircle("niit","advik@gmail.com"));
 	}
-  @Ignore
-  @Test
-  public void testToUpdateCircle()
-  {
-	  circle.setCircleName("general");
-	  Circle updatableCircle=circleDAO.getCircleByName(circle.getCircleName());
-	  updatableCircle.setStatus(false);
-	  assertEquals(true, circleDAO.updateCircle(updatableCircle));
-	  
-	  
-  }
 
   @Test(expected=NullPointerException.class)
   public void testToUpdateNotExistingCircle()

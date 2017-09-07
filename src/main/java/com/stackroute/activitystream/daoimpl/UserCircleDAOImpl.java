@@ -201,9 +201,13 @@ public class UserCircleDAOImpl implements UserCircleDAO {
 
 		userCircle  = (UserCircle) query.uniqueResult();
 		if (userCircle != null)
+		{
 			return true;
+		}
 		else
+		{
 			return false;
+		}
 	}
 
 	@Override
